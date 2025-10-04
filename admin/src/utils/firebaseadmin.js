@@ -1,14 +1,13 @@
-import { initializeApp } from "firebase/app";
-import { getAuth } from "firebase/auth";
+// backend/utils/firebaseAdmin.js
+import admin from "firebase-admin";
+import dotenv from "dotenv";
+dotenv.config();
 
-const firebaseConfig = {
-  apiKey: "AIzaSyD2WpwNAE87gAJD0T3b60U0o24m4Aol6BI",
-  authDomain: "drx-anime.firebaseapp.com",
-  projectId: "drx-anime",
-  storageBucket: "drx-anime.appspot.com",
-  messagingSenderId: "1046704841991",
-  appId: "1:1046704841991:web:0435ce22301b6465c191a2"
-};
+if (!admin.apps.length) {
+  admin.initializeApp({
+    credential: admin.credential.cert(JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT)),
+  });
+}
 
-const app = initializeApp(firebaseConfig);
-export const auth = getAuth(app);
+export const authAdmin = admin.auth();
+export const db = admin.firestore();

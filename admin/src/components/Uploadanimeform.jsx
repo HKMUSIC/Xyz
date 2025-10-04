@@ -75,3 +75,10 @@ export default function UploadAnimeForm() {
     </div>
   );
 }
+catch (err) {
+  if (err.response?.status === 403) {
+    setMessage("🚫 You are not authorized to upload anime.");
+  } else {
+    setMessage("❌ Error adding anime!");
+  }
+      }
